@@ -1,0 +1,15 @@
+{
+	"apps": {
+		"http": { 
+			"servers": { 
+				"automatic_https": {
+					"disable": true,
+					"disable_redirects": false,
+					"skip": [""],
+					"skip_certificates": [""],
+					"ignore_loaded_certificates": false
+				}
+			}
+		}
+	}
+}

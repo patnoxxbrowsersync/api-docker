@@ -13,8 +13,8 @@ services:
     image: "mongo:4.4.4"
     restart: "unless-stopped"
     volumes:
-      - "/opt/xbrowsersync/live/xbs-db-data:/data/db"
-      - "/opt/xbrowsersync/live/xbs-db-backups:/data/backups"
+      - "/opt/work/patnox/xbrowsersync/live/xbs-db-data:/data/db"
+      - "/opt/work/patnox/xbrowsersync/live/xbs-db-backups:/data/backups"
       - "./mongoconfig.js:/docker-entrypoint-initdb.d/mongoconfig.js"
   api:
     container_name: "xbs-api"
@@ -46,11 +46,11 @@ services:
       - "5858:80"
     restart: "unless-stopped"
     volumes:
-      - "./any.my.local-ip.co.crt:/etc/caddy/any.my.local-ip.co.crt"
-      - "./any.my.local-ip.co.key:/etc/caddy/any.my.local-ip.co.key"
-      - "./caddy.json:/etc/caddy/caddy.json"
-      - "./Caddyfile:/etc/caddy/Caddyfile"
-      - "/opt/xbrowsersync/live/xbs-caddy-config:/config"
-      - "/opt/xbrowsersync/live/xbs-caddy-data:/data"
+      - "/opt/work/patnox/xbrowsersync/live/10-20-21-122.my.local-ip.co.crt:/etc/caddy/10-20-21-122.my.local-ip.co.crt"
+      - "/opt/work/patnox/xbrowsersync/live/10-20-21-122.my.local-ip.co.key:/etc/caddy/10-20-21-122.my.local-ip.co.key"
+      - "/opt/work/patnox/xbrowsersync/live/caddy.json:/etc/caddy/caddy.json"
+      - "/opt/work/patnox/xbrowsersync/live/Caddyfile:/etc/caddy/Caddyfile"
+      - "/opt/work/patnox/xbrowsersync/live/xbs-caddy-config:/config"
+      - "/opt/work/patnox/xbrowsersync/live/xbs-caddy-data:/data"
 
 

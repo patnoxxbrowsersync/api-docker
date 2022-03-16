@@ -13,8 +13,8 @@ services:
     image: "mongo:4.4.4"
     restart: "unless-stopped"
     volumes:
-      - "/opt/xbrowsersync/live/xbs-db-data:/data/db"
-      - "/opt/xbrowsersync/live/xbs-db-backups:/data/backups"
+      - "xbs-db-data:/data/db"
+      - "xbs-db-backups:/data/backups"
       - "./mongoconfig.js:/docker-entrypoint-initdb.d/mongoconfig.js"
   api:
     container_name: "xbs-api"
@@ -37,20 +37,25 @@ services:
       - "./settings.json:/usr/src/api/config/settings.json"
       - "./healthcheck.js:/usr/src/api/healthcheck.js"
   reverse-proxy:
+    command: "caddy reverse-proxy --from $API_HOSTNAME --to api:8080"
+    command: caddy run --config /etc/caddy/caddy.json
     container_name: "xbs-reverse-proxy"
     depends_on:
       - "api"
-    image: "caddy:2.4.6-alpine"
+    image: "caddy:2.3.0-alpine"
     ports:
       - "5959:443"
       - "5858:80"
     restart: "unless-stopped"
     volumes:
-      - "./any.my.local-ip.co.crt:/etc/caddy/any.my.local-ip.co.crt"
-      - "./any.my.local-ip.co.key:/etc/caddy/any.my.local-ip.co.key"
-      - "./caddy.json:/etc/caddy/caddy.json"
-      - "./Caddyfile:/etc/caddy/Caddyfile"
-      - "/opt/xbrowsersync/live/xbs-caddy-config:/config"
-      - "/opt/xbrowsersync/live/xbs-caddy-data:/data"
+      - "/opt/work/patnox/xbrowsersync/live/10-20-21-122.my.local-ip.co.crt:/etc/caddy/10-20-21-122.my.local-ip.co.crt"
+      - "/opt/work/patnox/xbrowsersync/live/10-20-21-122.my.local-ip.co.key:/etc/caddy/10-20-21-122.my.local-ip.co.key"
+      - "/opt/work/patnox/xbrowsersync/live/Caddyfile:/etc/caddy/Caddyfile"
+      - "/opt/work/patnox/xbrowsersync/live/xbs-caddy-config:/config"
+      - "/opt/work/patnox/xbrowsersync/live/xbs-caddy-data:/data"
 
-
+volumes:
+  xbs-caddy-config:
+  xbs-caddy-data:
+  xbs-db-backups:
+  xbs-db-data:
