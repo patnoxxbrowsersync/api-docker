@@ -1,4 +1,25 @@
 # xBrowserSync
+
+## Patnox Remix
+Just modify the file "Caddyfile" and put in your IPs. For example, if you ip is 172.217.170.206, add:
+
+172-217-170-206.my.local-ip.co {
+    reverse_proxy api:8080
+    tls /etc/caddy/any.my.local-ip.co.crt /etc/caddy/any.my.local-ip.co.key
+}
+
+Then run:
+
+# docker-compose up -d
+
+Remember to allow port 5959 through your firewall.
+
+Your server will then be accessible through:
+
+https://172.217.170.206.my.local-ip.co:5959/
+
+Thats all you need to do. No acme, nothing. You are the best.
+
 ## API for Docker
 
 ![](https://img.shields.io/docker/pulls/xbrowsersync/api.svg) 
